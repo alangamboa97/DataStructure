@@ -1,32 +1,29 @@
 #include <stdio.h>
-#include <conio.h>
-#include <string.h>
 #include <stdlib.h>
 
 typedef struct _Nodo
 {
-	char dato;
+	int dato;
 	struct _Nodo *sig;
 }Fila;
 
-//RESERVAMOS MEMORIA PARA LA FILA
-Fila *Crear(char dato)
+
+Fila *Crear(int dato)
 {
-	Fila *nuevo_nodo;
-	nuevo_nodo = (Fila*)malloc(sizeof(Fila));
-	nuevo_nodo -> dato=dato;
-  nuevo_nodo -> sig=NULL;
-    return nuevo_nodo;
+	Fila *nuevo;
+	nuevo = (Fila*)malloc(sizeof(Fila));
+	nuevo -> dato=dato;
+  nuevo -> sig=NULL;
+  return nuevo;
 }
 
-//DAMOS DE ALTA LA FILA
 Fila *Alta(Fila *inicio, int dato)
 {
-	Fila *nuevafila, *aux;
-	nuevafila = Crear(dato);
+	Fila *nuevo, *aux;
+	nuevo = Crear(dato);
 	if(inicio==NULL)
 	{
-		inicio = nuevafila;
+		inicio = nuevo;
 	 }else
 	 	{
 	 		aux = inicio;
@@ -36,16 +33,15 @@ Fila *Alta(Fila *inicio, int dato)
 	 			aux = aux->sig;
 			 }
 
-			 aux -> sig = nuevafila;
-
-		}
+			 aux -> sig = nuevo;
+	   }
 
 		return inicio;
 }
 
 
-//DAMOS DE BAJA LA FILA
-Fila *pop(Fila *inicio)
+
+Fila *bajaFila(Fila *inicio)
 {
 	Fila *aux;
 
@@ -54,82 +50,82 @@ Fila *pop(Fila *inicio)
 		aux = inicio;
 		inicio = inicio -> sig;
 		free(aux);
-	}
+	}else{
+    printf("UNDERFLOW");
+  }
 
 	return inicio;
 }
 
 
-//CREAMOS EL CUERPO DE MOSTRAR UNA FILA
-void Mostrar(Fila *top)
+void verFila(Fila *nodo)
 {
-	int i=0;
-    if(top==NULL)
+    if(nodo==NULL)
 	{
-    	printf("\n TU FILA SE ENCUENTRA VACIA");
+    	printf("\nTu fila esta vacia");
 	}else
 		{
-          while(top!=NULL)
+          while(nodo!=NULL)
 		  {
-            printf("%c",top->dato);
-            top=top->sig;
+            printf("%d\t",nodo->dato);
+            nodo=nodo->sig;
           }
         }
 
 }
 
-//TAMA�O DE LA FILA
+
 
 void Tamano(Fila *cima){
-    int t=0;
+    int contador=0;
     if(cima!=NULL){
         do{
-            t++;
+            contador++;
             cima=cima->sig;
         }while(cima!=NULL);
     }
-    printf("Tama�o: %d\n",t);
+    printf("Tamanio: %d\n",contador);
 }
 
 
 int main()
 {
-	Fila *top;//Puntero que apunta a la estructura pila
+	Fila * fila = NULL;
 
-    top=NULL;//Declaramos en nulo al puntero
-    char dato;
-    int opc=1, tam;
+    int dato,opc, tam;
 
-    printf("1. Insertar\n");
-    printf("2. Borrar\n");
-    printf("3. Mostrar tama�o\n");
-    printf("4. Mostrar fila\n");
 
     do{
+      printf("\n1. Insertar\n");
+      printf("2. Borrar\n");
+      printf("3. Mostrar tamano\n");
+      printf("4. Mostrar fila\n");
+      printf("5. Salir\n");
+      printf("\nElige una opcion: ");
+      scanf("%d",&opc);
+
         switch(opc){
+
             case 1:
-                printf("\n inserta un dato ");
-                scanf("%c",&dato);
-                top = Alta(top,dato);
-                //Mostrar(top);
+                printf("\nInserta un entero: ");
+                scanf("%d",&dato);
+                fila = Alta(fila,dato);
                 fflush(stdin);
             break;
             case 2:
-                top = pop(top);
-                Mostrar(top);
+                fila = bajaFila(fila);
+                verFila(fila);
             break;
             case 3:
-                Tamano(top);
+                Tamano(fila);
             break;
             case 4:
-                Mostrar(top);
+                verFila(fila);
             break;
         }
 
-        printf("\nElige una opcion: ");
-        scanf("%d",&opc);
-        fflush(stdin);
-    }while(opc==1 || opc==2 || opc==3 || opc==4);
 
+        fflush(stdin);
+    }while(opc != 5);
     return 0;
 }

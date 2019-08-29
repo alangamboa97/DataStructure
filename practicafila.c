@@ -1,5 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
+#include <windows.h>
+
+
+
 
 typedef struct _Nodo
 {
@@ -67,12 +72,12 @@ void verFila(Fila *nodo)
 		{
           while(nodo!=NULL)
 		  {
-            printf("%d\t",nodo->dato);
+            printf("%d ",nodo->dato);
             nodo=nodo->sig;
           }
         }
-
 }
+
 
 
 
@@ -87,45 +92,64 @@ void Tamano(Fila *cima){
     printf("Tamanio: %d\n",contador);
 }
 
+int main(){
 
-int main()
-{
-	Fila * fila = NULL;
+int delay = 30;
+Fila *fila1 = NULL;
+Fila *fila2= NULL;
+Fila *fila3 = NULL;
+Fila *filaimpresion = NULL;
+Fila *ptr1;
+int inicio = 1;
 
-    int dato,opc, tam;
-
-
-    do{
-      printf("\n1. Insertar\n");
-      printf("2. Borrar\n");
-      printf("3. Mostrar tamano\n");
-      printf("4. Mostrar fila\n");
-      printf("5. Salir\n");
-      printf("\nElige una opcion: ");
-      scanf("%d",&opc);
-
-        switch(opc){
-
-            case 1:
-                printf("\nInserta un entero: ");
-                scanf("%d",&dato);
-                fila = altaFila(fila,dato);
-                fflush(stdin);
-            break;
-            case 2:
-                fila = bajaFila(fila);
-                verFila(fila);
-            break;
-            case 3:
-                Tamano(fila);
-            break;
-            case 4:
-                verFila(fila);
-            break;
-        }
+srand(1);
 
 
-        fflush(stdin);
-    }while(opc != 5);
-    return 0;
+
+
+for (int i = 0; i<10; i++){
+  fila1 = altaFila(fila1,1);
+  fila2 = altaFila(fila2,2);
+  fila3 = altaFila(fila3,3);
+
+}
+
+//ptr1 = bajaFila(fila1);
+
+
+
+
+for(int i = 0; i<10; i++){
+  if(rand()%4 == 1){
+filaimpresion = altaFila(filaimpresion, fila1->dato);
+fila1 = bajaFila(fila1);
+
+}if(rand()%4 == 2){
+  filaimpresion = altaFila(filaimpresion, fila2->dato);
+  fila2 = bajaFila(fila2);
+}if(rand()%4 == 3){
+
+    filaimpresion = altaFila(filaimpresion, fila3->dato);
+    fila3 = bajaFila(fila3);
+  }
+
+
+}
+
+
+printf("Fila 1: ");
+verFila(fila1);
+printf("\nFila 2: ");
+verFila(fila2);
+printf("\nFila 3: ");
+verFila(fila3);
+
+printf("\n Fila impresion: " );
+verFila(filaimpresion);
+
+
+
+
+
+
 }

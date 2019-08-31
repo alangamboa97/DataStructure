@@ -92,6 +92,7 @@ void Tamano(Fila *cima){
     printf("Tamanio: %d\n",contador);
 }
 
+<<<<<<< HEAD
 void procesoImpresion(Fila *fila1, Fila* fila2, Fila *fila3, Fila *filaimpresion)
 {
 int i;
@@ -119,23 +120,62 @@ if(rand()%4 == 2){
 
 else{
   filaimpresion = altaFila(filaimpresion, fila2->id);
-  fila2 = bajaFila(fila2);
-}
+=======
+int main(){
+
+int delay = 30;
+Fila *fila1 = NULL;
+Fila *fila2= NULL;
+Fila *fila3 = NULL;
+Fila *filaimpresion = NULL;
+Fila *ptr1;
+int inicio = 1;
+
+srand(1);
+
+
+
+
+for (int i = 0; i<10; i++){
+  fila1 = altaFila(fila1,1);
+  fila2 = altaFila(fila2,2);
+  fila3 = altaFila(fila3,3);
+
 }
 
+//ptr1 = bajaFila(fila1);
+
+
+
+
+for(int i = 0; i<10; i++){
+  if(rand()%4 == 1){
+filaimpresion = altaFila(filaimpresion, fila1->dato);
+fila1 = bajaFila(fila1);
+
+}if(rand()%4 == 2){
+  filaimpresion = altaFila(filaimpresion, fila2->dato);
+>>>>>>> parent of 45ce746... empezando con el char de la estructura
+  fila2 = bajaFila(fila2);
+}if(rand()%4 == 3){
+
+<<<<<<< HEAD
 if(rand()%4 == 3){
 
     if(fila3 == NULL){
   i--;
   }else{
     filaimpresion = altaFila(filaimpresion, fila3->id);
+=======
+    filaimpresion = altaFila(filaimpresion, fila3->dato);
+>>>>>>> parent of 45ce746... empezando con el char de la estructura
     fila3 = bajaFila(fila3);
-  }
   }
 
 
 }
 
+<<<<<<< HEAD
 }
 
 int main(){
@@ -166,6 +206,9 @@ srand(time(NULL));
 procesoImpresion(fila1, fila2, fila3, filaimpresion);
 
 printf("\nDespues de 30 segundos:\n");
+=======
+
+>>>>>>> parent of 45ce746... empezando con el char de la estructura
 printf("Fila 1: ");
 verFila(fila1);
 printf("\nFila 2: ");
@@ -173,10 +216,13 @@ verFila(fila2);
 printf("\nFila 3: ");
 verFila(fila3);
 
-
 printf("\n Fila impresion: " );
+<<<<<<< HEAD
 
 Tamano(filaimpresion);
+=======
+verFila(filaimpresion);
+>>>>>>> parent of 45ce746... empezando con el char de la estructura
 
 
 

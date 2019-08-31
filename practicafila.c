@@ -160,6 +160,7 @@ fila1 = bajaFila(fila1);
 }if(rand()%4 == 3){
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 if(rand()%4 == 3){
 
     if(fila3 == NULL){
@@ -167,6 +168,8 @@ if(rand()%4 == 3){
   }else{
     filaimpresion = altaFila(filaimpresion, fila3->id);
 =======
+=======
+>>>>>>> parent of 45ce746... empezando con el char de la estructura
     filaimpresion = altaFila(filaimpresion, fila3->dato);
 >>>>>>> parent of 45ce746... empezando con el char de la estructura
     fila3 = bajaFila(fila3);
@@ -175,6 +178,7 @@ if(rand()%4 == 3){
 
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 }
 
@@ -209,6 +213,9 @@ printf("\nDespues de 30 segundos:\n");
 =======
 
 >>>>>>> parent of 45ce746... empezando con el char de la estructura
+=======
+
+>>>>>>> parent of 45ce746... empezando con el char de la estructura
 printf("Fila 1: ");
 verFila(fila1);
 printf("\nFila 2: ");
@@ -218,8 +225,12 @@ verFila(fila3);
 
 printf("\n Fila impresion: " );
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 Tamano(filaimpresion);
+=======
+verFila(filaimpresion);
+>>>>>>> parent of 45ce746... empezando con el char de la estructura
 =======
 verFila(filaimpresion);
 >>>>>>> parent of 45ce746... empezando con el char de la estructura

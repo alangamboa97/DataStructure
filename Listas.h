@@ -23,7 +23,7 @@ int Tam(Lista*top){
 	if(top!=NULL){
 	do{
 	tam++;
-	top=top->sig;	
+	top=top->sig;
 	}while(top!=NULL);
 }
 return tam;
@@ -40,14 +40,16 @@ Lista*InsertarFinal(int n, Lista*top){ //Filas
 	Lista*aux,*aux2;
 	aux=Crear(n);
 	if(top==NULL){
-	printf("No se puede insertar al final en una lista vacia, llame a insertar al inicio");
+	printf("No se puede insertar al final en una lista vacia, llamando a funcion insertar al inicio");
 	getche();
-		return aux;
+	aux = InsertarInicio(n, top);
+	return aux;
 	}
 	else{
 		aux2=top;
 		while(aux2 ->sig != NULL){
 		aux2=aux2->sig;
+
 		}
 		aux2->sig=aux;
 		return top;
@@ -56,26 +58,29 @@ Lista*InsertarFinal(int n, Lista*top){ //Filas
 
 Lista*Insertarpos(int n, Lista*top,int pos){
 	int tam,i;
-	Lista*aux,*NodoNuevo;
+	Lista*aux,*aux2;
 	if(top==NULL){
-		printf("Lista vacía, no insertado\n");
+		printf("Lista vacÃ­a, se insertara al principio\n");
+		top = InsertarInicio(n, top);
+		getche();
 		return top;
 	}
 	else{
-		tam=Tam(top);//FUNCION PARA CALCULAR TAMAÑO
-		if(pos>tam){ //Si se pasa del tamaño de la lista
-			printf("Posicion invalida, llame a insertar al final\n");
+		tam=Tam(top);
+		if(pos>tam){
+			printf("Posicion invalida, se insertara al final\n");
+			top = InsertarFinal(n, top);
 			getche();
 			return top;
 		}
-		else{ //Si está dentro de los valores
+		else{
 			aux=top;
-			NodoNuevo=Crear(n);
-			for(i=0;i<pos;i++){ //Llegar hasta una antes de la posicion deseada
-			aux=aux->sig; //Recorremos
+			aux2=Crear(n);
+			for(i=0;i<(pos);i++){ //Llegar hasta una antes de la posicion deseada
+			aux=aux->sig;
 			}
-			NodoNuevo->sig=aux->sig; //Apuntamos el nuevo nodo a su continuacion
-			aux->sig=NodoNuevo;
+			aux2->sig=aux->sig; //Apuntamos el nuevo nodo a su continuacion
+			aux->sig=aux2;
 			return top;
 		}
 	}
@@ -98,24 +103,27 @@ Lista *Eliminarpos(Lista*top,int pos){
 	int tam,i;
 	char opc;
 	Lista*aux,*aux1;
-	if(top==NULL){ //Si está vacía
-		printf("Lista Vacía");
+	if(top==NULL){
+		printf("Lista Vacia");
 		getche();
 	}
-	else{ //Si no está vacía
+	else{
 		tam=Tam(top);
 		if(pos>tam){ //Si se pasa alv
-			printf("Posicion invalida,excede el tamaño de la  lista\n");
-			printf("¿Desea eliminar el final?(s/n)\n");
+			printf("Posicion invalida,excede el tamanio de la  lista\n");
+			getche();
+			printf("Eliminar el  nodo final?(S/N)\n");
+			getche();
 			scanf("%c",&opc);
+			getche();
 			if(opc=='s')
 			Eliminarfinal(top);
 			else{
-				printf("Ninguna accion realizada\n");
+				printf("No se realizo ninguna accion\n");
 				return top;
-			}	
+			}
 		}
-		else{ //Si está dentro de la longitud de la lista
+		else{
 		aux=top;
 		for(i=0;i<pos;i++){ //Llegar antes de la posicion a borrar
 			aux=aux->sig;
@@ -157,6 +165,9 @@ void Mostrar(Lista*top){
 		getche();
 	}
 }
+
+
+
 
 
 #endif

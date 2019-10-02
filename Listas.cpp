@@ -8,16 +8,16 @@ int main(){
 	Lista*top;
 	top=NULL;
 	do{ system("cls");
-	printf("Bienvenido, selecciona la accion a realizar:\n");
-	printf("1.-Insertar dato al inicio de la lista\n");
-	printf("2.-Insertar dato al final de la lista\n");
+	printf("-----------MENU--------------\n");
+	printf("1.-Insertar dato al inicio\n");
+	printf("2.-Insertar dato al final\n");
 	printf("3.-Insertar dato en una posicion especifica\n");
-	printf("4.-Eliminar dato al inicio de la fila\n");
-	printf("5.-Eliminar dato al final de la fila\n");
+	printf("4.-Eliminar dato al inicio\n");
+	printf("5.-Eliminar dato al final\n");
 	printf("6.-Eliminar dato en un posicion especifica\n");
 	printf("7.-Mostrar lista\n");
-	printf("8.-Tamano de lista\n");
-	printf("9.-SALIR\n");
+	printf("8.-Tamanio de lista\n");
+	printf("9.-Salir\n");
 	scanf("%d",&opc);
 	switch(opc){
 		case 1:

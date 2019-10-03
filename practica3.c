@@ -30,6 +30,7 @@ int main(){
 
   FILE *in = fopen("inventario.txt", "r+");
   Lista *lista1 = NULL;
+  lista1 = iniInventario();
 
   int opc;
 
@@ -46,68 +47,72 @@ int main(){
 
 do {
 
-  int id;
-  int id_ingresar;
+ 
+ 
   int cantidad, posicion;
+  int tamanio;
   char descripcion_lista[30];
   system("cls");
   printf("-----------MENU--------------\n");
-	printf("1.-Insertar producto\n");
+  printf("1.-Insertar producto\n");
   printf("2.-Eliminar producto\n");
-	printf("3.-Tamanio\n");
-	printf("4.- Ver\n");
+  printf("3.-Tamanio\n");
+  printf("4.- Ver\n");
   printf("5.- Insertar Cantidades de Productos\n");
   printf("6.- Eliminar Cantidades de Productos\n");
   printf("7.- Agregar nuevo producto a inventario\n");
   printf("8.- Guardar en archivo de texto\n");
-  lista1 = leerInventario(lista1, in);
   Mostrar(lista1);
+
 
   scanf("%d",&opc);
   switch (opc) {
     case 1:
-    printf("%Ingresa la descripcion:\n");
+    printf("Ingresa la descripcion:\n");
     scanf(" %[^\n]", descripcion_lista);
     lista1 = InsertarMismoProducto(lista1, descripcion_lista);
     break;
 
     case 2:
-    printf("%Ingresa la descripcion:\n");
+    printf("Ingresa la descripcion:\n");
     scanf(" %[^\n]", descripcion_lista);
     lista1 = EliminarMismoProducto(lista1, descripcion_lista);
     break;
 
     case 3:
-    Tam(lista1);
+     tamanio = Tam(lista1);
+     printf("Tamanio: %d", tamanio);
     getche();
     break;
     case 4:
-    Mostrar(lista1);
-
+    
+	
     break;
+    
     case 5:
 
     printf("Ingresa la descripcion del dato a agregar");
     scanf(" %[^\n]", descripcion_lista);
     printf("Ingresar la cantidad a agregar");
-    scanf("%d",&cantidad);
+    scanf(" %d",&cantidad);
     lista1 = agregarcantidad(lista1, cantidad, descripcion_lista);
     break;
 
     case 6:
     printf("Ingresa la descripcion del dato a eliminar");
     scanf(" %[^\n]", descripcion_lista);
+    
     printf("Ingresar la cantidad a eliminar");
-    scanf("%d",&cantidad);
+    scanf(" %d",&cantidad);
     lista1 = eliminarcantidad(lista1,cantidad, descripcion_lista);
 
     break;
     case 7:
-    id = 1;
+    
     printf("Inserta la descripcion del producto\n");
     scanf(" %[^\n]", descripcion_lista);
-    printf("%Ingresa la cantidad del producto\n");
-    scanf("%d",&cantidad);
+    printf("Ingresa la cantidad del producto\n");
+    scanf(" %d",&cantidad);
     lista1 = InsertarFinal(id, cantidad, descripcion_lista, lista1);
     id++;
     break;
@@ -118,9 +123,7 @@ do {
 
   }
 } while(opc != 8);{
-  Guardar(lista1,in);
-
-
+  Guardar(lista1);
 }
 
 
@@ -131,13 +134,5 @@ do {
 
 
 
-
-
-
-
-
-
-
-
-
 }
+

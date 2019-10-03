@@ -15,6 +15,7 @@ typedef struct Nodo{
 	struct Nodo* sig;
 }Lista;
 
+int id = 1;
 Lista* Crear(int id, int cantidad, char descripcion	[]){
 	Lista * nuevo;
 	nuevo= (Lista*)malloc(sizeof(Lista));
@@ -46,25 +47,21 @@ Lista*InsertarInicio(int n,int cantidad, char descripcion[],Lista*top){ //pilas
 }
 
 Lista*InsertarFinal(int n,int cantidad,char descripcion[] ,Lista*top){ //Listas
-	Lista*aux,*aux2;
-	aux=Crear(n, cantidad, descripcion);
-	if(top==NULL){
-	printf("No se puede insertar al final en una lista vacia, llamando a funcion insertar al inicio1");
-	aux = InsertarInicio(n,cantidad,descripcion, top);
-	return aux;
-	}
-
-	else{
-		aux2=top;
-		while(aux2 ->sig != NULL){
-		aux2=aux2->sig;
-
-		}
-		aux2->sig=aux;
-		return top;
-	}
+	
+Lista* aux;
+    Lista* nuevo;
+    aux = top;
+    nuevo = Crear(n,cantidad, descripcion);
+    if(aux == NULL){
+        top = nuevo;
+    }else{
+        while(aux->sig != NULL){
+            aux = aux->sig;
+        }
+        aux->sig = nuevo;
+    }
+    return top;
 }
-
 
 
 Lista*EliminarInicio(Lista*top){//Pilas
@@ -178,7 +175,7 @@ Lista *EliminarMismoProducto(Lista *lista, char descripcion[]){
 }
 
 void Mostrar(Lista*top){
-	int i=1;
+	
 	Lista*aux;
 	aux=top;
 	if(aux==NULL){
@@ -187,18 +184,19 @@ void Mostrar(Lista*top){
 	}
 	else{
 		while(aux!=NULL){
-			printf("Dato %d: %d  %s\n",aux-> id, aux->cantidad ,aux->descripcion);
+			printf("%d %d %s\n",aux-> id, aux->cantidad ,aux->descripcion);
 			aux=aux->sig;
-			i++;
+			
 		}
 		getche();
 	}
 }
 
-void Guardar(Lista*top, FILE *out){
+void Guardar(Lista*top){
 	int i=1;
 	Lista*aux;
 	aux=top;
+	FILE* fp = fopen("inventario.txt","w+");
 	if(aux==NULL){
 		printf("Lista vacia\n");
 
@@ -206,12 +204,13 @@ void Guardar(Lista*top, FILE *out){
 	else{
 		while(aux!=NULL){
 
-			fprintf(out, "%d\t%d\t%s\n",aux-> id, aux -> cantidad, aux-> descripcion);
+			fprintf(fp, "%d-%d-%s",aux-> id, aux -> cantidad, aux-> descripcion);
 			aux=aux->sig;
 			i++;
 		}
 
 	}
+	fclose(fp);
 }
 
 
@@ -275,40 +274,151 @@ Lista *modificardescripcion(Lista *top, char descripcion[], int pos){
     return top;
 }
 
-Lista *leerInventario(Lista *lista,FILE *file){
+Lista *leerInventario(Lista *lista)
+{
 	Lista *aux;
-	FILE *out;
-	char* buffer[200];
-	int id, cantidad;
-	char descripcion[30];
+	aux = lista;
+	int cantidad;
+	char descripcion[20];
+	
+FILE *archivo=fopen("inventario.txt","r");
+				if(archivo==NULL){
+				printf("Error al abrir el archivo txt");
+			}
+			
+			
+			while(fscanf(archivo,"%s %d",descripcion,&cantidad)!=EOF){
+			int id=Tam(lista);
+			id=id+1;
+			if(aux == NULL){
+			
+			aux=InsertarInicio(id,cantidad,descripcion, lista);
+			}
+			else{
+				aux=InsertarFinal(id,cantidad,descripcion, lista);
+			}
+			printf("\n\n\n");
+			Mostrar(aux);
+			
+			return aux;
+		}
+			
+}
 
-	if(file == NULL){
-		puts("Error al abrir el archivo");
-		out = fopen("inventario.txt", "w+");
+Lista* iniInventario(){
+	int i=0;
+	int cantidad;
+	char delimitador[] = "-";
+	char *line = (char*)malloc(100*(sizeof(char)));
+	Lista* aux = NULL;
+	char descripcion[20];
+	FILE* pf = fopen("inventario.txt","r+t");
+	while(fgets(line,1000,pf)){
+
+
+    	char *token = strtok(line, delimitador);
+        // S?lo en la primera pasamos la cadena; en las siguientes pasamos NULL
+
+        id = atoi(token);
+        token = strtok(NULL, delimitador);
+
+    	
+
+		cantidad = atoi(token);
+		token = strtok(NULL, delimitador);
 		
+		strcpy(descripcion,token);
+		token = strtok(NULL, delimitador);
 
-	}else{
-
-		if(file != NULL){
-			puts("Archivo previamente creado");
-
-		while(!feof(file))
-		{
-			fscanf(file, "%d\t%d\t%s", id, cantidad,descripcion);
-			if(lista == NULL){
-
-			lista = InsertarInicio(id,cantidad,descripcion,lista);
-		}else{
-			lista = InsertarFinal(id, cantidad, descripcion, lista);
-		}
-		}
-		aux = lista;
-
+	
+		aux = InsertarFinal(id,cantidad,descripcion,aux);
 
 	}
+	fclose(pf);
+	return aux;
 }
-getche();
-return aux;
+
+Lista *abrirarchivo(int contadorid,Lista *cima)
+{
+	Lista *aux = cima;
+	char buffer[100];
+	int contadoraux;
+	int i,j;
+	char auxiliarc;
+	int cantidadaux;
+	char platilloaux[30];
+		FILE * inventario = fopen("inventario.txt","r");
+
+        	if(inventario == NULL)
+     		{
+     		 perror("error al abrir el archivo");
+     		}
+
+				 if(contadorid>contadoraux)
+				 {
+
+				 }else {
+
+     		while(!feof(inventario))
+     		{
+     			fgets(buffer,100,inventario);
+     			contadorid ++;
+     			contadoraux = contadorid;
+     			contadorid++;
+     		}
+
+
+     		rewind(inventario);
+     		printf("%d\n",contadoraux);
+
+     		while(!feof(inventario))
+            {
+
+
+     			fscanf (inventario,"%d\t%d\t%s",&contadorid,&cantidadaux,&platilloaux);
+     			
+                   aux = InsertarInicio(contadorid,cantidadaux,platilloaux,cima);
+
+                if(aux != NULL){
+
+                   aux = InsertarFinal(contadorid,cantidadaux,platilloaux,cima);
+                }
+
+
+            }
+
+
+
+
+
+					   }
+
+
+		    rewind(inventario);
+			printf("%d\n",contadoraux);
+
+
+
+
+
+
+
+
+
+
+
+
+
+			
+
+
+
+
+     		fclose(inventario);
+     		return aux;
 }
+
+
+	
 
 #endif
